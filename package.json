@@ -1,0 +1,7 @@
+{
+  "name": "putzo",
+  "scripts": {
+    "build": "cd apps/web && bun install && bun run build",
+    "start": "cd apps/web && bun run start"
+  }
+}
