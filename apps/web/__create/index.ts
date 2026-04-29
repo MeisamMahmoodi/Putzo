@@ -296,4 +296,13 @@ app.route(API_BASENAME, api);
 export default await createHonoServer({
   app,
   defaultLogger: false,
+  beforeAll(serverApp) {
+    serverApp.use('/api/auth/*', async (c, next) => {
+      if (isAuthAction(c.req.path)) {
+        return authHandler()(c, next);
+      }
+      return next();
+    });
+    serverApp.route(API_BASENAME, api);
+  },
 });
