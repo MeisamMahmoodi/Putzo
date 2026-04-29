@@ -285,14 +285,6 @@ app.all('/integrations/:path{.+}', async (c, next) => {
   });
 });
 
-app.use('/api/auth/*', async (c, next) => {
-  if (isAuthAction(c.req.path)) {
-    return authHandler()(c, next);
-  }
-  return next();
-});
-app.route(API_BASENAME, api);
-
 export default await createHonoServer({
   app,
   defaultLogger: false,
