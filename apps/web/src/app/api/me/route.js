@@ -1,5 +1,5 @@
-import sql from "@/app/api/utils/sql";
-import { getAuthUser } from "@/app/api/utils/jwt";
+import sql from "../utils/sql.js";
+import { getAuthUser } from "../utils/jwt.js";
 
 export async function GET(request) {
   const user = await getAuthUser(request);

@@ -205,36 +205,6 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Hint */}
-        <View
-          style={{
-            marginTop: 40,
-            backgroundColor: "#F8FAFC",
-            borderRadius: 12,
-            padding: 16,
-            width: "100%",
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 11,
-              fontWeight: "700",
-              color: "#94A3B8",
-              marginBottom: 8,
-              letterSpacing: 0.5,
-            }}
-          >
-            TEST-ZUGANGSDATEN
-          </Text>
-          <Text style={{ fontSize: 12, color: "#64748B", marginBottom: 4 }}>
-            <Text style={{ fontWeight: "600" }}>Inhaber: </Text>owner@putzo.de ·
-            Putzo2024!
-          </Text>
-          <Text style={{ fontSize: 12, color: "#64748B" }}>
-            <Text style={{ fontWeight: "600" }}>Mitarbeiterin: </Text>
-            lisa@putzo.de · Lisa2024!
-          </Text>
-        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

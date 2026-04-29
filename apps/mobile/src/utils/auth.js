@@ -6,6 +6,14 @@ import * as SecureStore from "expo-secure-store";
 
 const TOKEN_KEY = "putzo_token";
 const USER_KEY = "putzo_user";
+const API_BASE_URL =
+  process.env.EXPO_PUBLIC_API_BASE_URL || process.env.EXPO_PUBLIC_BASE_URL || "";
+
+function apiUrl(path) {
+  if (/^https?:\/\//.test(path)) return path;
+  if (!API_BASE_URL) return path;
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
+}
 
 export function useAuth() {
   const [user, setUser] = useState(null);
@@ -32,7 +40,7 @@ export function useAuth() {
 
   const signIn = useCallback(async (email, password) => {
     setError(null);
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(apiUrl("/api/auth/login"), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -72,7 +80,7 @@ export function useAuth() {
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
         ...(options.headers || {}),
       };
-      const res = await fetch(url, { ...options, headers });
+      const res = await fetch(apiUrl(url), { ...options, headers });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.error || `Fehler ${res.status}`);

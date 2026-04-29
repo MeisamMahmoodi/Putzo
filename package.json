@@ -1,7 +1,10 @@
 {
   "name": "putzo",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
-    "build": "cd apps/web && bun install && bun run build",
-    "start": "cd apps/web && bun run start"
+    "build": "npm --prefix apps/web install && npm --prefix apps/web run build",
+    "start": "npm --prefix apps/web run start"
   }
 }

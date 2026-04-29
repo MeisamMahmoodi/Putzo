@@ -1,6 +1,6 @@
 import argon2 from "argon2";
-import sql from "@/app/api/utils/sql";
-import { signJWT } from "@/app/api/utils/jwt";
+import sql from "../../utils/sql.js";
+import { signJWT } from "../../utils/jwt.js";
 
 export async function POST(request) {
   try {

@@ -1,7 +1,9 @@
 // Central JWT utility — used by all API routes to verify auth
 // Supports: Authorization: Bearer <token> header (mobile + web)
 
-const secret = process.env.AUTH_SECRET || "putzo-secret-fallback-2024";
+const secret =
+  process.env.AUTH_SECRET ||
+  (process.env.NODE_ENV === "production" ? null : "putzo-local-dev-secret");
 
 function base64urlEncode(str) {
   return Buffer.from(str).toString("base64url");
@@ -12,6 +14,10 @@ function base64urlDecode(str) {
 }
 
 async function getKey(usage) {
+  if (!secret) {
+    throw new Error("AUTH_SECRET must be set in production");
+  }
+
   return crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(secret),

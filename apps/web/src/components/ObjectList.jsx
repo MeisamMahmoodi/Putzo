@@ -146,9 +146,7 @@ export default function ObjectList() {
                   cleaning_days: Array.from(formData.getAll("cleaning_days")),
                   start_time: formData.get("start_time"),
                   end_time: formData.get("end_time"),
-                  employee_ids: Array.from(formData.getAll("employees")).map(
-                    Number,
-                  ),
+                  employee_ids: Array.from(formData.getAll("employees")),
                 };
                 saveObjectMutation.mutate(data);
               }}

@@ -296,9 +296,7 @@ export default function EmployeeList() {
                   first_name: fd.get("first_name"),
                   last_name: fd.get("last_name"),
                   phone: fd.get("phone") || null,
-                  known_object_ids: Array.from(fd.getAll("known_objects")).map(
-                    Number,
-                  ),
+                  known_object_ids: Array.from(fd.getAll("known_objects")),
                 });
               }}
               className="p-6 space-y-4"

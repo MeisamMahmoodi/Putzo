@@ -1,5 +1,5 @@
-import sql from "@/app/api/utils/sql";
-import { getAuthUser } from "@/app/api/utils/jwt";
+import sql from "../utils/sql.js";
+import { getAuthUser } from "../utils/jwt.js";
 
 export async function POST(request) {
   const user = await getAuthUser(request);
@@ -11,6 +11,11 @@ export async function POST(request) {
       await request.json();
 
     if (action === "report_sick") {
+      if (!object_id) {
+        await sql`UPDATE employees SET status = 'sick' WHERE id = ${employee_id}`;
+        return Response.json({ success: true, status: "sick" });
+      }
+
       const result = await sql`
         INSERT INTO attendance (employee_id, object_id, date, status)
         VALUES (${employee_id}, ${object_id}, ${date}, 'sick')

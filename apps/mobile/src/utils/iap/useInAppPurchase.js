@@ -5,6 +5,14 @@ import { useInAppPurchaseStore } from './store';
 
 export const RETRY_ATTEMPTS = 3;
 export const RETRY_DELAY_MS = 1500;
+const API_BASE_URL =
+  process.env.EXPO_PUBLIC_API_BASE_URL || process.env.EXPO_PUBLIC_BASE_URL || "";
+
+function apiUrl(path) {
+  if (/^https?:\/\//.test(path)) return path;
+  if (!API_BASE_URL) return path;
+  return `${API_BASE_URL.replace(/\/$/, "")}${path}`;
+}
 
 export const getRevenueCatAPIKey = () => {
   if (process.env.EXPO_PUBLIC_CREATE_ENV === 'DEVELOPMENT') {
@@ -42,7 +50,7 @@ export async function loadOfferings(setOfferings) {
 
 export async function fetchSubscriptionStatus(setIsSubscribed) {
   try {
-    const response = await fetch('/api/revenue-cat/get-subscription-status', {
+    const response = await fetch(apiUrl('/api/revenue-cat/get-subscription-status'), {
       method: 'POST',
     });
     if (!response.ok) {

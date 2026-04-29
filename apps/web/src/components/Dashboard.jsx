@@ -156,7 +156,9 @@ export default function Dashboard({ user }) {
   // ── Stat: objects coverage ────────────────────────────────────────────────
   const objectsWithoutCover = objectsToday.filter((obj) => {
     const assignedEmployees = obj.assigned_employees ?? [];
-    const activeWorkers = assignedEmployees.filter((e) => e.status !== "sick");
+    const activeWorkers = assignedEmployees.filter((e) =>
+      ["scheduled", "present", "active"].includes(e.status),
+    );
     return activeWorkers.length === 0;
   });
   const allObjectsCovered = objectsWithoutCover.length === 0;
@@ -346,7 +348,7 @@ export default function Dashboard({ user }) {
                 (e) => e.status === "sick",
               );
               const hasActiveWorker = obj.assigned_employees.some(
-                (e) => e.status !== "sick",
+                (e) => ["scheduled", "present", "active"].includes(e.status),
               );
               const needsSubstitute = hasSick && !hasActiveWorker;
 
